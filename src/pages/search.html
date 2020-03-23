@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Search For a product to track</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app/design/search.css">
+    <script src="../js/conf.js"></script>
+  </head>
+  <body>
+  
+    
+    <div class="container-body">
+      <h2>Enter URL Of Product To Price Check</h2>
+      <p>Serach Amazon for a specific product to track current prices on and recieve alerts when prices decrease your spceifed threshold</p>
+        <div class="form-group">
+          <label for="product_name">Product Name</label>
+          <input type="text" class="form-control" id="product_name" aria-describedby="emailHelp">
+          <small id="product_name" class="form-text text-muted">Search Amazon for your product</small>
+        </div>
+        <div class="form-group">
+          <label for="product_url">Product URL</label>
+          <input type="url" class="form-control" id="product_url" required>
+          <small id="product_url" class="form-text text-muted">Link to product on Amazon</small>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-5">
+            <label for="alert_settings">Alert Settings</label>
+            <select id="alert_settings" class="form-control">
+              <option selected>Choose alert options</option>
+              <option>no alerts</option>
+              <option>price falls below specified $amount</option>
+              <option>item is on sale</option>
+              <option>price change of specified %</option>
+            </select>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputZip">Specify Criteria for Alerts</label>
+            <input type="text" class="form-control" id="criteria_value" placeholder="20%">
+            <small id="criteria_value" class="form-text text-muted">Example: 20% or $200</small>
+          </div>
+        </div>
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" id="allow_monitoring">
+          <label class="form-check-label" for="allow_monitoring">Allow Product Monitoring</label>
+          <small id="allow_monitoring" class="form-text text-muted">If allowed application will monitor prices more often and will monitor product price even when application is closed.</small>
+        </div>
+        <button id='submitBtn' class="btn btn-primary">Submit</button>
+        <a href="landing.html">Landing Page</a>
+    </div>
+    
+  <script src="../js/addProduct.js"></script>
+  </body>
+</html>

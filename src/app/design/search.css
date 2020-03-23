@@ -1,0 +1,14 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  margin: auto;
+  background: rgb(255, 255, 255);
+}
+
+h2 {
+  margin-top: 30px;
+}
+
+.container-body {
+  width: 80vw;
+  margin: auto;
+}
