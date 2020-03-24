@@ -23,11 +23,16 @@ async function crawl_product_page(productUrl) {
             let $ = cheerio.load(html);
             let price = $("#priceblock_ourprice").html();
             let title = $("#productTitle").html().trim();
-            
+            let imageSc = $("#landingImage")[0].attribs["data-old-hires"];
+            //
+            //rsimageSc = imageSc.slice(1, -1);
+            console.log(imageSc);
+
             let data_arr = {
                 title: title,
                 price: price,
                 url: productUrl,
+                img: imageSc,
                 user_title: product_name.value,
                 date_last: Date.now()
             };
@@ -58,13 +63,6 @@ function check_data_values(url, name) {
         console.log(errMsg);
         error = true;
        
-    }
-
-    if(localStorage.getItem(name)) { // see if item is already tracked in items array
-        errMsg = "item is already tracked.";
-        console.log(errMsg);
-        error = true;
-        
     }
 
     return error;

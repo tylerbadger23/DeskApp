@@ -1,0 +1,38 @@
+.err-con {
+    margin: auto;
+    width: 100vw;
+    overflow: hidden;
+    height: 100vw;
+}
+
+body {
+    overflow: hidden;
+}
+
+img {
+    margin-top: 20px;
+      height: 38%;
+      display: block;
+      margin: auto;
+      
+  }
+  
+  p {
+      color: #3F3D56;
+      font-size: 27px;
+      font-weight: 500;
+      margin-top: 10px;
+      text-align: center;
+  }
+
+  .go-back {
+      color: #F50057;
+      font-size: 22px;
+      outline: none;
+      text-decoration: none;
+      border: none;
+  }
+
+  .go-back:hover {
+      color: #3F3D56;
+  }

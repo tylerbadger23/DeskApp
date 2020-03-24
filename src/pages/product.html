@@ -6,20 +6,22 @@
     <link rel="stylesheet" href="../app/design/product.css">
     <link rel="stylesheet" href="../app/design/main.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <title>Product Page</title>
+    <title>Amazon Scraper</title>
     <script src="../js/conf.js"></script>
 </head>
 <body>
 <br>
 <div id="product">
-  
   <h2 id='product-name'></h2> 
   <div class="product-info">
-    <h3 id="product-price"></h3>
-    <button id="amazon-link" class="btn btn-info btn-sm" onclick="openExt()">View on Amazon</button>
+    <div class="img-container"><img id='thumbnail'></div>
+    <div class="row" style="margin-top: 20px">
+      <h3 class='col-sm-3' id="product-price"></h3>
+      <button  class="col-sm-3 btn btn-info btn-sm" id="amazon-link"  onclick="openExt()" style="float: right;">View on Amazon</button>
+    </div>
     <div id="lowest-price"></div>
     <div id="last-checked-date"></div>
-    <a class='btn-link' href="./landing.html" >Home Page</a>
+    <a class='btn btn-light btn-sm"' href="./landing.html" style="margin-top: 20px;">Home Page</a>
   </div>
 
   

@@ -2,6 +2,7 @@ let productId;
 let productName = document.getElementById("product-name");
 let productPrice = document.getElementById("product-price");
 let amazonLink;
+let thumbnail = document.getElementById("thumbnail");
 let lowestPrice = document.getElementById("lowest-price");
 let lastCheckedDate = document.getElementById("last-checked-date");
 
@@ -27,12 +28,14 @@ async function getProductInformation(qid) { //pass id sent from other page
             //set data for product page
             productName.innerText = data.title;
             productPrice.innerText =`Price: ${data.price}`;
+            thumbnail.src = data.img;
             amazonLink = data.url;
             lowestPrice = productPrice;
             lastCheckedDate = data.date_last;
             console.log(data);
         } else {
             console.log(error)
+            window.location.assign("404.html");
         }
         
     });

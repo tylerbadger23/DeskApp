@@ -1,6 +1,7 @@
 #product-name {
     font-size: 26px;
-    margin: 30px 10px 15px 0px;
+    margin: 30px 1px 15px 0px;
+    width: 900px;
     color: rgb(10, 10, 10);
     
 }
@@ -11,8 +12,9 @@
 }
 
 #product-price {
-    margin-top: 20px;
-    font-size: 22px;
+    margin-top: 10px;
+    float: left;
+    font-size: 24px;
 }
 
 
@@ -20,4 +22,16 @@
     color: rgb(29, 30, 36);
     font-size: 14px;
     padding: 6px 0px 0px 6px;
+}
+
+.img-container{
+    max-height: 300px;
+    max-width: 700px;
+}
+
+#thumbnail {
+    max-height: 300px;
+    max-width: 650px;
+    margin: auto;
+    text-align: center;
 }

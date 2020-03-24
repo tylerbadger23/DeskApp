@@ -1,6 +1,11 @@
+* {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
 .link-form {
     color: rgb(0,123,255);
     text-decoration: none;
+    overflow: hidden;
     outline: none;
     border: none;
     border-bottom: .4rspx solid transparent;

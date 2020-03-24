@@ -2,7 +2,6 @@
 
 async function list_products() {
    
-
     await database.find({}, (error, data) => { // get * data from db and lost in in data parameter
         if(!error) {
             let row = document.createElement('div');
@@ -21,6 +20,7 @@ async function list_products() {
             console.log('Fetched Data');
         } else {
             console.log(error);
+            window.location.assign("404.html");
         }
         
         
