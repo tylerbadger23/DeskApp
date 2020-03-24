@@ -7,8 +7,18 @@ let submitBtn = document.getElementById("submitBtn");
 let product_name = document.getElementById("product_name");
 let alertSettings = document.getElementById("alert_settings");
 let product_url = document.getElementById("product_url");
+let userAlerts = document.getElementById("alert_settings");
+
+let enableAlerts = false;
 
 submitBtn.addEventListener("click", async() => {
+
+    if(userAlerts.value == "true") {
+        enableAlerts = true;
+    } else {
+        enableAlerts = false;
+    }
+
     if(check_data_values(product_url.value, product_name.value) == false) { //checkj if errors exist
         console.log("Crawling started");
         await crawl_product_page(product_url.value);
@@ -29,12 +39,14 @@ async function crawl_product_page(productUrl) {
             console.log(imageSc);
 
             let data_arr = {
+                alerts: enableAlerts,
                 title: title,
                 price: price,
+                cheapestPrice: price,
                 url: productUrl,
                 img: imageSc,
-                user_title: product_name.value,
-                date_last: Date.now()
+                date_last: Date.now(),
+                num_checks: 1
             };
 
             database.insert(data_arr);

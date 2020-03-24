@@ -10,18 +10,6 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 }
 
 const createWindow = () => {
-
-  // Create the browser window.
-  const mainWindow = new BrowserWindow({
-    webPreferences :{
-      nodeIntegration: true
-    },
-    resizable: false,
-    autoHideMenuBar: true,
-    width: 1300,
-    height: 880,
-    frame: true
-  });
   
   const bootWindow = new BrowserWindow({
     webPreferences :{
@@ -34,20 +22,45 @@ const createWindow = () => {
     frame: false
   });
 
+  const updateWindow = new BrowserWindow({
+    webPreferences :{
+      nodeIntegration: true
+    },
+    resizable: false,
+    autoHideMenuBar: true,
+    width: 1,
+    height: 1,
+    frame: false
+  });
 
-  mainWindow.loadFile(path.join(__dirname, '/pages/landing.html'));
+  const mainWindow = new BrowserWindow({
+    webPreferences :{
+      nodeIntegration: true
+    },
+    resizable: false,
+    autoHideMenuBar: true,
+    width: 1300,
+    height: 880,
+    frame: true
+  }); 
+
   mainWindow.hide();
+  updateWindow.loadFile(path.join(__dirname, '/pages/update.html'));
+  //updateWindow.webContents.openDevTools();
+  updateWindow.hide();
   setTimeout(() => {
+    // Create the browser window.
     bootWindow.close();
+    mainWindow.loadFile(path.join(__dirname, '/pages/landing.html'));
     mainWindow.show();
   }, startupTimer);
 
-  
   // and load the index.html of the app.
   bootWindow.loadFile(path.join(__dirname, '/pages/splash.html'));
 
   // Open the DevTools.
   //mainWindow.webContents.openDevTools();
+ // updateWindow.webContents.openDevTools();
 };
 
     // Create the Application's main menu
