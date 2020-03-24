@@ -8,7 +8,7 @@
     overflow: hidden;
     outline: none;
     border: none;
-    border-bottom: .4rspx solid transparent;
+    border-bottom: .4px solid transparent;
 }
 
 .link-form:hover {

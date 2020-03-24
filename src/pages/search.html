@@ -17,8 +17,9 @@
         <div class="links">
           <ul>
             <li><a href="search.html">New</a></li>
-            <li><a href="search.html">Settings</a></li>
+            <li><a href="landing.html">View</a></li>
             <li><a href="search.html">About</a></li>
+            <li><a href="404.html">Preferences</a></li>
           </ul>
         </div>
         </div>
@@ -34,7 +35,7 @@
       <div class="form-group">
           <label for="product_name">Product Name</label>
           <input type="text" class="form-control" id="product_name" aria-describedby="emailHelp">
-          <small id="product_name" class="form-text text-muted">Search Amazon for your product</small>
+          <small id="product_name" class="form-text text-muted">Name of product</small>
         </div>
         <div class="form-group">
           <label for="product_url">Product URL</label>
@@ -43,28 +44,22 @@
         </div>
         <div class="form-row">
           <div class="form-group col-md-5">
-            <label for="alert_settings">Alert Settings</label>
+            <label for="alert_settings">Notification Settings</label>
             <select id="alert_settings" class="form-control">
-              <option selected>Choose alert options</option>
-              <option>no alerts</option>
-              <option>price falls below specified $amount</option>
-              <option>item is on sale</option>
-              <option>price change of specified %</option>
+              <option selected>Select Notification Preference</option>
+              <option>No Alerts</option>
+              <option>Price Decreases</option>
+              <option>Item On Sale</option>
             </select>
           </div>
-          <div class="form-group col-md-4">
-            <label for="inputZip">Specify Criteria for Alerts</label>
-            <input type="text" class="form-control" id="criteria_value" placeholder="20%">
-            <small id="criteria_value" class="form-text text-muted">Example: 20% or $200</small>
-          </div>
+         
         </div>
         <div class="form-group form-check">
           <input type="checkbox" class="form-check-input" id="allow_monitoring">
-          <label class="form-check-label" for="allow_monitoring">Allow Product Monitoring</label>
-          <small id="allow_monitoring" class="form-text text-muted">If allowed application will monitor prices more often and will monitor product price even when application is closed.</small>
+          <label class="form-check-label" for="allow_monitoring">Allow Desktop Notifications</label>
+          <small id="allow_monitoring" class="form-text text-muted" style='width: 400px;'>If checked, this app be allowed access to send notifications when this product reduces in price.</small>
         </div>
-        <button id='submitBtn' class="btn btn-primary">Submit</button>
-        <a href="landing.html" class="btn btn-dark">Back</a>
+        <button id='submitBtn' class="btn">Submit</button>
     </div>
     
   <script src="../js/addProduct.js"></script>

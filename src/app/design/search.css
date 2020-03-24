@@ -15,6 +15,10 @@ h2 {
   margin: auto;
 }
 
+input:focus {
+  outline: #F50057;
+}
+
 #search-p {
   text-align: center;
   margin: auto;
@@ -29,4 +33,9 @@ img {
     margin: auto;
     text-align: center;
     
+}
+
+#submitBtn {
+  background-color: #F50057;
+  color: rgb(255, 255, 255);
 }
