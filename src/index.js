@@ -1,8 +1,7 @@
 const { app, BrowserWindow, Menu } = require('electron');
 const path = require('path');
 let Datastore = require("nedb");
-let settingsDb = new Datastore("settings.db");
-settingsDb.loadDatabase();
+
 
 let startupTimer = 7000;
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
