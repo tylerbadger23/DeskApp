@@ -1,0 +1,23 @@
+#product-name {
+    font-size: 26px;
+    margin: 30px 10px 15px 0px;
+    color: rgb(10, 10, 10);
+    
+}
+
+#product {
+    margin: auto;
+    width: 85vw;
+}
+
+#product-price {
+    margin-top: 20px;
+    font-size: 22px;
+}
+
+
+#back-btn {
+    color: rgb(29, 30, 36);
+    font-size: 14px;
+    padding: 6px 0px 0px 6px;
+}

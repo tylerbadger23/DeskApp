@@ -12,12 +12,14 @@ const createWindow = () => {
     webPreferences :{
       nodeIntegration: true
     },
-    width: 1100,
-    height: 750,
+    resizable: true,
+    autoHideMenuBar: true,
+    width: 1200,
+    height: 800,
   });
 
   // and load the index.html of the app.
-  mainWindow.loadFile(path.join(__dirname, '/pages/search.html'));
+  mainWindow.loadFile(path.join(__dirname, '/pages/landing.html'));
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
