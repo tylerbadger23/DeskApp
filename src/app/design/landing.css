@@ -9,12 +9,43 @@
     width: 90vw;
   }
 
-  #products-title {
-    color: rgb(5, 5, 5);
+  .padding-bottom {
+    margin: 4px 0px;
+  }
+
+  #hero-header {
+    color: #F50057 ;
+    font-size: 40px;
+    font-weight: 400;
     text-align: center;
-    margin-top: 25px;
+    margin: 44px 0px 15px 0px;
+  }
+
+  .hero-text {
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 400;
+    text-align: center;
+    padding-bottom: 30px;
+    width: 70vw;
+    margin: auto;
+    color: rgb(45, 43, 59) ;
+  }
+
+  #products-title {
+    color: #3F3D56;
+    margin: 40px 0px 14px 0px;
+
   }
 
   #products-fill {
     margin-top: 8px;
+  }
+
+  img {
+    margin-top: 40px;
+      height: 240px;
+      display: block;
+      margin: auto;
+      
   }

@@ -38,14 +38,6 @@ async function crawl_product_page(productUrl) {
             };
 
             database.insert(data_arr);
-            database.find({}, (err, data)=> {
-                if(err) {
-                    console.log("Error in db find");
-                } else {
-                    console.log("successfully grabbed datafrom db");
-                    console.log(data);
-                }
-            });
             window.location.assign("landing.html");
              
       } else {     

@@ -7,7 +7,7 @@ async function list_products() {
             let row = document.createElement('div');
             for (let i = 0; i < data.length; i++) {
                 let itemDiv = document.createElement("a");
-                itemDiv.classList.add("list-group-item", "list-group-item-action");
+                itemDiv.classList.add("list-group-item", "list-group-item-action", "padding-bottom");
                 itemDiv.innerText = data[i].title;
                 itemDiv.href = `product.html?id=${data[i]._id}`;
                 

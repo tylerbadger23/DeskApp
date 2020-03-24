@@ -3,7 +3,7 @@ const path = require('path');
 let Datastore = require("nedb");
 
 
-let startupTimer = 7000;
+let startupTimer = 1000;
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
   app.quit();
@@ -18,8 +18,8 @@ const createWindow = () => {
     },
     resizable: false,
     autoHideMenuBar: true,
-    width: 1200,
-    height: 900,
+    width: 1300,
+    height: 880,
     frame: true
   });
   
