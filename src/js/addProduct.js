@@ -19,11 +19,16 @@ submitBtn.addEventListener("click", async() => {
         enableAlerts = false;
     }
 
-    if(check_data_values(product_url.value, product_name.value) == false) { //checkj if errors exist
+
+
+    if(check_data_values(product_url.value) == false) { //checkj if errors exist
         console.log("Crawling started");
         await crawl_product_page(product_url.value);
     } else {
         console.log("err so we did not start crawl");
+        product_url.value = "";
+        let errMsg = "Invalid url was given to the server";
+        window.location.assign(`search.html?err=${errMsg}`);
     }
 })
 
@@ -49,18 +54,21 @@ async function crawl_product_page(productUrl) {
                 num_checks: 1
             };
 
-            database.insert(data_arr);
-            window.location.assign("landing.html");
+            if(price == null && title == null) { // error scraping data
+                window.location.assign(`search.html?err=true`);
+            } else {
+                database.insert(data_arr);
+                window.location.assign(`landing.html`);
+            }
              
-      } else {     
-        window.location.reload(); 
-        console.log(err);
-      }
-      
+        } else {     
+            window.location.assign(`search.html?err=true`);
+        }
+    
     }); 
 }
 
-function check_data_values(url, name) {
+function check_data_values(url) {
     let error = false;
     if(url.length == 0 || name.length < 0) { // check url and name lengths 
         errMsg = "parimiter/s is empty";

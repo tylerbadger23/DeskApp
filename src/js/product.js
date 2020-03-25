@@ -6,12 +6,14 @@ let thumbnail = document.getElementById("thumbnail");
 let lowestPrice = document.getElementById("lowest-price");
 let lastCheckedDate = document.getElementById("last-checked-date");
 
+
 if (window.location.search.indexOf('id') > -1) {
     let searchQuery = window.location.search;
     productId = searchQuery.split("=")[1];
 } else {
     alert('Product_ID Not found Error = true');
 }
+
 getProductInformation(productId);
     
 

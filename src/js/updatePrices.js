@@ -1,6 +1,11 @@
 let cheerio = require('cheerio');
 let request = require('request');
 let fs = require("fs");
+let minute = 60000;
+let hour = 3600000;
+let halfHour = 1800000;
+let fiveMinutes = 300000;
+let halfMin = 30000;
 
 async function updateProduct(id, url, price, numChecks) {
     let old_price = price;
@@ -18,14 +23,19 @@ async function updateProduct(id, url, price, numChecks) {
                 num_checks: new_num_checks
             };
 
-           // Set an neww price
+           // Set a new price
             await database.update({_id: id }, { $set: { price: new_price } }, {multi:true}, function (err, numReplaced) {
-                if(!err) {console.log(`Updated ${id} in db... Number replaced : ${numReplaced}`);}
+                if(!err) {console.log(`Updated ${id} price in db:  ${numReplaced}`);}
+            });
+
+            // change num checks for testing 
+            await database.update({_id: id }, { $set: { date_last: Date.now() } }, {multi:true}, function (err, numReplaced) {
+                if(!err) {console.log(`Updated ${id} in db date: ${Date.now()}`);}
             });
 
             // change num checks for testing 
             await database.update({_id: id }, { $set: { num_checks: new_num_checks } }, {multi:true}, function (err, numReplaced) {
-                if(!err) {console.log(`Updated ${id} in db... Number replaced : ${numReplaced}`);}
+                if(!err) {console.log(`Updated ${id} in db num checks ++ ${new_num_checks}`);}
             });
              
       } else {     
@@ -52,5 +62,9 @@ async function startUpdating () { //get all products crwaled
         
     })
 }
+let updateInterval = halfMin; //interval for updating data
 
-startUpdating();
+setInterval(()=> { //update db after every x miliseconds
+    startUpdating();
+    console.log("Interval started");
+}, updateInterval)

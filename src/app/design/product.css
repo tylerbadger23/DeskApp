@@ -17,6 +17,11 @@
     font-size: 24px;
 }
 
+#price-cheapest {
+    margin-top: 10px;
+    float: left;
+    font-size: 24px;   
+}
 
 #back-btn {
     color: rgb(29, 30, 36);
@@ -35,3 +40,22 @@
     margin: auto;
     text-align: center;
 }
+
+#error-msg {
+    color: rgb(245, 0, 0);
+    font-size: 16px;
+    font-weight: 300;
+    margin: 10px 0px;
+}
+
+.data-over-time {
+    justify-content: center;
+    width: 90%;
+    margin: auto;
+    max-height: 300px;
+}
+
+#prices-week {
+    max-height: 500px;
+}
+
