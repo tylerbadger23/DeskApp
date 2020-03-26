@@ -3,7 +3,7 @@ const path = require('path');
 let Datastore = require("nedb");
 
 
-let startupTimer = 3000;
+let startupTimer = 7500;
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
   app.quit();
@@ -44,6 +44,10 @@ const createWindow = () => {
     frame: true
   }); 
 
+
+  if(process.platform == "win32") {
+    mainWindow.setSize(1400, 940)
+  }
   mainWindow.hide();
   updateWindow.loadFile(path.join(__dirname, '/pages/update.html'));
   updateWindow.webContents.openDevTools();
@@ -60,7 +64,7 @@ const createWindow = () => {
   bootWindow.loadFile(path.join(__dirname, '/pages/splash.html'));
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  //mainWindow.webContents.openDevTools();
 };
 
     // Create the Application's main menu
