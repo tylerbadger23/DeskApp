@@ -4,7 +4,7 @@ let Datastore = require("nedb");
 
 //cnstant timer for all startupos
 //should be waiting for promise returned aftyer checking pries
-let startupTimer = 7500;
+let startupTimer = 7000;
 
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
   app.quit();
@@ -27,11 +27,11 @@ const createWindow = () => {
     webPreferences :{
       nodeIntegration: true
     },
-    resizable: false,
+    resizable: true,
     autoHideMenuBar: true,
-    width: 8,
-    height: 8,
-    frame: false
+    width: 1000,
+    height: 900,
+    frame: true
   });
 
   const mainWindow = new BrowserWindow({
@@ -46,25 +46,25 @@ const createWindow = () => {
   }); 
 
 
-  if(process.platform == "win32") {
-    mainWindow.setSize(1400, 940)
-  }
-  mainWindow.hide();
-  updateWindow.loadFile(path.join(__dirname, '/pages/update.html'));
-  updateWindow.webContents.openDevTools();
   updateWindow.hide();
+  mainWindow.hide();
   setTimeout(() => {
     // Create the browser window.
     bootWindow.close();
     mainWindow.loadFile(path.join(__dirname, '/pages/landing.html'));
     mainWindow.show();
     
+    updateWindow.loadFile(path.join(__dirname, '/pages/update.html'));
+    updateWindow.webContents.openDevTools();
+    updateWindow.hide();
+
   }, startupTimer);
 
   bootWindow.loadFile(path.join(__dirname, '/pages/splash.html'));
 
   // Open the DevTools.
   //mainWindow.webContents.openDevTools();
+  //updateWindow.webContents.openDevTools();
 };
 
     // Create the main menu

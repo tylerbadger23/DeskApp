@@ -7,13 +7,13 @@ let submitBtn = document.getElementById("submitBtn");
 let product_name = document.getElementById("product_name");
 let alertSettings = document.getElementById("alert_settings");
 let product_url = document.getElementById("product_url");
-let userAlerts = document.getElementById("alert_settings");
+let userAlerts = document.getElementById("allow_monitoring");
 
 let enableAlerts = false;
 
 submitBtn.addEventListener("click", async() => {
 
-    if(userAlerts.value == "true") {
+    if(userAlerts.value == "true" || userAlerts.value == "checked") {
         enableAlerts = true;
     } else {
         enableAlerts = false;
@@ -43,8 +43,14 @@ async function crawl_product_page(productUrl) {
             //rsimageSc = imageSc.slice(1, -1);
             console.log(imageSc);
 
+            alertType = alertSettings.value
+
+            if(enableAlerts == "false" || enableAlerts == false) {
+                alertType = "No Alerts";
+            }          
             let data_arr = {
                 alerts: enableAlerts,
+                alertSettings: alertType,
                 title: title,
                 price: price,
                 cheapestPrice: price,
@@ -54,7 +60,7 @@ async function crawl_product_page(productUrl) {
                 num_checks: 1
             };
 
-            if(price == null && title == null) { // error scraping data
+            if(price == null || title == null) { // error scraping data
                 window.location.assign(`search.html?err=true`);
             } else {
                 database.insert(data_arr);
@@ -78,4 +84,16 @@ function check_data_values(url) {
     }
 
     return error;
+}
+
+function changeCheckBox(element) {
+    let boxValue = document.getElementById(element).value;
+    console.log(boxValue);
+    if(boxValue == "false") { //if the value is set
+        document.getElementById(element).value =  "true";
+    } else {
+        document.getElementById(element).value = "false"
+    }
+
+    console.log(`Value : ${boxValue}`);
 }

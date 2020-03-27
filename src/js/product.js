@@ -5,7 +5,12 @@ let amazonLink;
 let thumbnail = document.getElementById("thumbnail");
 let lowestPrice = document.getElementById("lowest-price");
 let lastCheckedDate = document.getElementById("last-checked-date");
+let updateInterval = 34000; // 34 seconds
+let allowAlerts = document.getElementById("allow_alerts");
+let selectedText;
 
+
+let selectedField = document.getElementById("selected-val");
 
 if (window.location.search.indexOf('id') > -1) {
     let searchQuery = window.location.search;
@@ -14,8 +19,6 @@ if (window.location.search.indexOf('id') > -1) {
     alert('Product_ID Not found Error = true');
 }
 
-getProductInformation(productId);
-    
 
 function openExt () {
     require('electron').shell.openExternal(amazonLink);
@@ -23,7 +26,7 @@ function openExt () {
 
 // main function called when poage loads
 async function getProductInformation(qid) { //pass id sent from other page
-    
+    await database.loadDatabase();
     await database.find({_id: qid}, (error, data) => { // search db for all data with the qui of id
         if(!error) {
             data = data[0];
@@ -32,6 +35,8 @@ async function getProductInformation(qid) { //pass id sent from other page
             productPrice.innerText =`Price: ${data.price}`;
             thumbnail.src = data.img;
             amazonLink = data.url;
+            selectedField.innerText = data.alertSettings;
+            allowAlerts.checked = data.alerts;
             lowestPrice = productPrice;
             lastCheckedDate = data.date_last;
             console.log(data);
@@ -42,3 +47,9 @@ async function getProductInformation(qid) { //pass id sent from other page
         
     });
 }
+getProductInformation(productId);
+
+setInterval(()=> {
+    getProductInformation(productId);
+}, updateInterval);
+
