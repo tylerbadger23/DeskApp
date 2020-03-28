@@ -11,7 +11,7 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 }
 
 const createWindow = () => {
-  
+
   const bootWindow = new BrowserWindow({
     webPreferences :{
       nodeIntegration: true
@@ -43,7 +43,7 @@ const createWindow = () => {
     width: 1200,
     height: 800,
     frame: true
-  }); 
+  });
 
 
   updateWindow.hide();
@@ -53,7 +53,7 @@ const createWindow = () => {
     bootWindow.close();
     mainWindow.loadFile(path.join(__dirname, '/pages/landing.html'));
     mainWindow.show();
-    
+
     updateWindow.loadFile(path.join(__dirname, '/pages/update.html'));
     updateWindow.webContents.openDevTools();
     updateWindow.hide();
@@ -104,6 +104,3 @@ app.on('activate', () => {
     createWindow();
   }
 });
-
-
-

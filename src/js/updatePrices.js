@@ -24,34 +24,34 @@ async function updateProduct(id, url, price, numChecks, title, wantsAlerts) {
             };
 
             //let priceDif = old_price.split("$")[1] -  new_price.split("$")[1];
-            let priceDif = 94.99 -  new_price.split("$")[1];
+            let priceDif = old_price.split("$")[1] -  new_price.split("$")[1];
             console.log(`${priceDif} = Diference in prices`);
 
             if(priceDif > 0 && wantsAlerts == true) {
                 sendNotification(`$${priceDif} Price Drop on Tracked Product!`, `${title}`);
             }
-            
+
            // Set a new price
             await database.update({_id: id }, { $set: { price: new_price } }, {multi:true}, function (err, numReplaced) {
                 if(!err) {console.log(`Updated ${id} price in db:  ${numReplaced}`);}
             });
 
-            // change num checks for testing 
+            // change num checks for testing
             await database.update({_id: id }, { $set: { date_last: Date.now() } }, {multi:true}, function (err, numReplaced) {
                 if(!err) {console.log(`Updated ${id} in db date: ${Date.now()}`);}
             });
 
-            // change num checks for testing 
+            // change num checks for testing
             await database.update({_id: id }, { $set: { num_checks: new_num_checks } }, {multi:true}, function (err, numReplaced) {
                 if(!err) {console.log(`Updated ${id} in db num checks ++ ${new_num_checks}`);}
             });
-             
-      } else {     
-        window.location.reload(); 
+
+      } else {
+        window.location.reload();
         console.log(err);
       }
-      
-    }); 
+
+    });
 }
 
 async function startUpdating () { //get all products crwaled
@@ -74,7 +74,7 @@ async function startUpdating () { //get all products crwaled
         } else { // error :(
             console.log("fatal error updating product prices");
         }
-        
+
     })
 }
 let updateInterval = halfMin; //interval for updating data
@@ -92,5 +92,5 @@ function sendNotification(header, msg) {
     let myNotification = new Notification(header.toString(), {
         body: msg.toString()
     });
-  
+
 }
