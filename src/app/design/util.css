@@ -1,0 +1,25 @@
+.utils {
+    width: 75vw;
+    margin: auto;
+}
+
+.card img {
+    padding: 15px 20px;
+}
+
+.utils h5 {
+    text-decoration: none;
+    color: rgb(45, 43, 59);
+}
+
+.utils p {
+    color: rgb(26, 26, 26);
+}
+
+
+.utils p:hover {
+    border: none;
+    color: rgb(17, 17, 17);
+    text-decoration: rgb(45, 43, 59);
+}
+

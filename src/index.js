@@ -4,7 +4,7 @@ let Datastore = require("nedb");
 
 //cnstant timer for all startupos
 //should be waiting for promise returned aftyer checking pries
-let startupTimer = 7000;
+let startupTimer = 1000;
 
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
   app.quit();
@@ -40,8 +40,8 @@ const createWindow = () => {
     },
     resizable: true,
     autoHideMenuBar: true,
-    width: 1200,
-    height: 800,
+    width: 1400,
+    height: 900,
     frame: true
   });
 
@@ -51,7 +51,7 @@ const createWindow = () => {
   setTimeout(() => {
     // Create the browser window.
     bootWindow.close();
-    mainWindow.loadFile(path.join(__dirname, '/pages/landing.html'));
+    mainWindow.loadFile(path.join(__dirname, '/pages/index.html'));
     mainWindow.show();
 
     updateWindow.loadFile(path.join(__dirname, '/pages/update.html'));
@@ -63,7 +63,7 @@ const createWindow = () => {
   bootWindow.loadFile(path.join(__dirname, '/pages/splash.html'));
 
   // Open the DevTools.
-  //mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
   //updateWindow.webContents.openDevTools();
 };
 

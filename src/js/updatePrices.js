@@ -9,25 +9,18 @@ let halfMin = 30000;
 
 async function updateProduct(id, url, price, numChecks, title, wantsAlerts) {
     let old_price = price;
-    let old_num_checks = numChecks;
     request(url, async function(err, resp, html) {
         if (!err) {
             let $ = cheerio.load(html);
             let new_price = $("#priceblock_ourprice").html();
 
             let new_num_checks = numChecks + 1;
-            let new_data_arr = {
-                price: new_price,
-                cheapest_price: new_price,
-                date_last: Date.now(),
-                num_checks: new_num_checks
-            };
 
-            //let priceDif = old_price.split("$")[1] -  new_price.split("$")[1];
+            
             let priceDif = old_price.split("$")[1] -  new_price.split("$")[1];
             console.log(`${priceDif} = Diference in prices`);
 
-            if(priceDif > 0 && wantsAlerts == true) {
+            if(priceDif > 0) {
                 sendNotification(`$${priceDif} Price Drop on Tracked Product!`, `${title}`);
             }
 
@@ -50,7 +43,7 @@ async function updateProduct(id, url, price, numChecks, title, wantsAlerts) {
         window.location.reload();
         console.log(err);
       }
-
+      
     });
 }
 
@@ -59,7 +52,7 @@ async function startUpdating () { //get all products crwaled
         if(!err) {
             console.log(`Database loaded`);
         } else {
-            consoile.log(err);
+            console.log(err);
         }
     });
     database.find({}, async (err, data) => { // get all products out of db

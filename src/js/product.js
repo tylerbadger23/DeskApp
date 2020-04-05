@@ -5,7 +5,7 @@ let amazonLink;
 let thumbnail = document.getElementById("thumbnail");
 let lowestPrice = document.getElementById("lowest-price");
 let lastCheckedDate = document.getElementById("last-checked-date");
-let updateInterval = 34000; // 34 seconds
+let updateInterval = 10000; // 10 seconds
 let allowAlerts = document.getElementById("allow_alerts");
 let selectedText;
 
@@ -20,7 +20,7 @@ if (window.location.search.indexOf('id') > -1) {
 }
 
 
-function openExt () {
+function openExt () { //used to,open page externaly 
     require('electron').shell.openExternal(amazonLink);
 }
 
@@ -37,6 +37,7 @@ async function getProductInformation(qid) { //pass id sent from other page
             amazonLink = data.url;
             selectedField.innerText = data.alertSettings;
             allowAlerts.checked = data.alerts;
+            allowAlerts.value = data.alerts;
             lowestPrice = productPrice;
             lastCheckedDate = data.date_last;
             console.log(data);

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app/design/landing.css">
+    <link rel="stylesheet" href="../app/design/browsertools.css">
+    <link rel="stylesheet" href="../app/design/main.css">
+    <title> URL Utility</title>
+    <script src="../js/conf.js"></script>
+</head>
+<body>
+<div class="nav-bg">
+  <nav class='nav-top'>
+    <div class="grid-2-nav">
+      <p class='nav-text'>URL Utility</p>
+    <div class="links">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="listurls.html">URL's</a></li>
+        <li><a href="404.html">Utility Preferences</a></li>
+      </ul>
+    </div>
+    </div>
+  </nav>
+</div>
+
+<div class="hero">
+  <h2 id='hero-header'>URL Lister</h2>
+  <p class='hero-text'>Save all of your most used URL's in this easy to use list tool. Sort by favorites with just one setting or search by url if needed for quick use. </p>
+</div>
+
+
+<div class="products-container">
+  <div class="url-form">
+    <div class="form-group">
+        <label for="url-input">Add URl</label>
+        <input type="url" class="form-control" id="url-input" value=" ">
+        <small id="url-input" class="form-text text-muted">Enter URL to track</small>
+        </div>
+    <button id='add-url' class="btn">Add</button>
+    <div id="urls-fill"></div>
+  </div>
+</div>
+
+
+<script src="../js/browsertools.js" defer></script>
+</body>
+</html>
