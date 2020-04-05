@@ -47,6 +47,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "cheerio": "^1.0.0-rc.3",
+    "electron-prebuilt-compile": "^8.2.0",
     "electron-squirrel-startup": "^1.0.0",
     "fs": "0.0.1-security",
     "nedb": "^1.8.0",

@@ -5,18 +5,16 @@ async function list_urls() {
 
             console.log(data);
             
-
-            
             let row = document.createElement('div');
             for (let i = 0; i < data.length; i++) {
-                let itemDiv = document.createElement("a");
+                let itemDiv = document.createElement("div");
                 itemDiv.classList.add("list-group-item", "list-group-item-action", "padding-bottom");
                 itemDiv.innerText = data[i].url;
-                itemDiv.href = `openExtUrl(data[i].url)`;
+                
+                itemDiv.id = data[i]._id.toString();
 
                 row.classList.add("list-group");
                 row.appendChild(itemDiv);
-
                 document.getElementById("urls-fill").after(row);
             } 
             console.log('Fetched Data');
@@ -27,6 +25,9 @@ async function list_urls() {
         
         
     });
+
+    
+
 }
 
 setTimeout(() => { // delay to db loading for config.js
