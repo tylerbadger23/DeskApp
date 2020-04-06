@@ -7,15 +7,23 @@ async function list_urls() {
             
             let row = document.createElement('div');
             for (let i = 0; i < data.length; i++) {
+
+                let divId = data[i]._id; // set divb id for use with onclick listener
                 let itemDiv = document.createElement("div");
-                itemDiv.classList.add("list-group-item", "list-group-item-action", "padding-bottom");
-                itemDiv.innerText = data[i].url;
+                itemDiv.classList.add("list-group-item", "list-group-item-action", "padding-bottom" , "url");
+                itemDiv.innerText = data[i].url.substring(0, 50);
                 
-                itemDiv.id = data[i]._id.toString();
+                itemDiv.id = divId;
+                
 
                 row.classList.add("list-group");
                 row.appendChild(itemDiv);
                 document.getElementById("urls-fill").after(row);
+
+                document.getElementById(divId).addEventListener("click", () => { // listener for click then will redirect to link in seperate window
+                    openExtUrl(data[i].url);
+                    console.log(data[i].url);
+                });
             } 
             console.log('Fetched Data');
         } else {
@@ -70,7 +78,7 @@ async function add_url(Url) {
                 window.location.assign("browsertools.html?err=true");// rediredcxt aftyer error
             } else {
                 console.log("success uploading url");
-                window.location.assign("browsertools.html?err=true"); 
+                window.location.assign("browsertools.html?err=false");
             }
         })
     }

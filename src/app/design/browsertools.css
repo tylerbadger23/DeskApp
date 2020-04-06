@@ -1,4 +1,22 @@
-.url-form {
-    width: 75vw;
+
+
+.products-container{
     margin: auto;
+    width: 73vw;
+}
+
+#add-url {
+    background-color: #F50057;
+    color: rgb(255, 255, 255);
+    margin-bottom: 10px;
+  
+}
+
+.url {
+   color: rgb(17, 17, 17);
+   font-size: 17px; 
+}
+
+.url:hover{
+    cursor: pointer;
 }
