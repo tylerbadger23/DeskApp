@@ -1,8 +1,8 @@
 {
-  "name": "price-checker",
-  "productName": "AmazonChecker",
+  "name": "personal-utility",
+  "productName": "PersonalUtility",
   "version": "1.0.0",
-  "description": "Price checking app for desktop and laptop computers running osx and windows.",
+  "description": "Peronal productivity app for desktop and laptop computers running osx and windows.",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
