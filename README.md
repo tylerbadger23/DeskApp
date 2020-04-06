@@ -4,3 +4,5 @@ Amazon Crawler is an Electron Js application for scrapinbg amazon products and c
 Wanna learn more or download the app? 
 
 contact me @tylerbadger23 on twitter. 
+
+https://github.com/tylerbadger23/Personal-Companion-App
