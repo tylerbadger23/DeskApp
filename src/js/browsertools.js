@@ -1,54 +1,22 @@
 
-async function list_urls() {
-    await urls.find({}, (error, data) => { // get * data from db and lost in in data parameter
-        if(!error) {
 
-            console.log(data);
-            
-            let row = document.createElement('div');
-            for (let i = 0; i < data.length; i++) {
+//define elements 
+let submitBtn = document.getElementById("add-url");
+let _url = document.getElementById("url-input");
 
-                let divId = data[i]._id; // set divb id for use with onclick listener
-                let itemDiv = document.createElement("div");
-                itemDiv.classList.add("list-group-item", "list-group-item-action", "padding-bottom" , "url");
-                itemDiv.innerText = data[i].url.substring(0, 50);
-                
-                itemDiv.id = divId;
-                
-
-                row.classList.add("list-group");
-                row.appendChild(itemDiv);
-                document.getElementById("urls-fill").after(row);
-
-                document.getElementById(divId).addEventListener("click", () => { // listener for click then will redirect to link in seperate window
-                    openExtUrl(data[i].url);
-                    console.log(data[i].url);
-                });
-            } 
-            console.log('Fetched Data');
-        } else {
-            console.log(error);
-            window.location.assign("404.html");
-        }
-        
-        
-    });
-
-    
-
-}
+let openTabs = document.getElementById("open-tabs");
 
 setTimeout(() => { // delay to db loading for config.js
     urls.loadDatabase();
     list_urls();
 }, 100);
 
-
-
-//define elements 
-let submitBtn = document.getElementById("add-url");
-let _url = document.getElementById("url-input");
-
+openTabs.addEventListener("click", async () => {
+    await openAllUrls().then(() => {
+        window.location.assign("browsertools.html");
+        console.log("reload complete. tabs open");
+    });
+})
 
 submitBtn.addEventListener("click", async() => {
     if(_url == undefined || _url == null) {
@@ -82,4 +50,58 @@ async function add_url(Url) {
             }
         })
     }
+}
+
+async function openAllUrls() { // when user clicks button open every url they have active
+    let openedUrls = [];
+
+    await urls.find({}, (err, data) => {
+        if(err) {
+            console.log(`Error loading all links: ${err}`);
+        } else {
+            data.forEach(item => {
+                openExtUrl(item.url); // open url in new window
+                setTimeout(()=> {console.log("pausing")}, 400);
+            });
+
+            
+        }
+    });
+}
+
+
+
+async function list_urls() {
+    await urls.find({}, (error, data) => { // get * data from db and lost in in data parameter
+        if(!error) {
+
+            console.log(data);
+            
+            let row = document.createElement('div');
+            for (let i = 0; i < data.length; i++) {
+
+                let divId = data[i]._id; // set divb id for use with onclick listener
+                let itemDiv = document.createElement("div");
+                itemDiv.classList.add("list-group-item", "list-group-item-action", "padding-bottom" , "url");
+                itemDiv.innerText = data[i].url.substring(0, 50);
+                
+                itemDiv.id = divId;
+                
+
+                row.classList.add("list-group");
+                row.appendChild(itemDiv);
+                document.getElementById("urls-fill").after(row);
+
+                document.getElementById(divId).addEventListener("click", () => { // listener for click then will redirect to link in seperate window
+                    openExtUrl(data[i].url);
+                    console.log(data[i].url);
+                });
+            } 
+            console.log('Fetched Data');
+        } else {
+            console.log(error);
+            window.location.assign("404.html");
+        }
+            
+    });
 }
