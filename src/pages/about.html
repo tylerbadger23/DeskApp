@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app/design/main.css">
+    <link rel="stylesheet" href="../app/design/about.css">
+    <title>About</title>
+    <script src="../js/conf.js"></script>
+</head>
+<body>
+<div class="nav-bg">
+  <nav class='nav-top'>
+    <div class="grid-2-nav">
+      <p class='nav-text'>About</p>
+    <div class="links">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href='' style="color: rgb(235, 235, 235);" onclick="quitApp()">Quit</a></li>
+      </ul>
+    </div>
+    </div>
+  </nav>
+</div>
+
+
+<div class="center-about">
+    <h2 id='about-header' style="color: #3F3D56; font-size: 34px;">Hello!</h2> 
+    <p id='about-p'>My name is Tyler Laceby. Im a Computer Science Student developing this app in my free time. Its currently open to the public for my friends, family, and possible employers to see and use. I can assure there will be some minor bugs and hickups while using but please feel free to leave feedback if you encounter one you would like to have fixed. Hope you enjoy and like what you see.</p>
+    <br>
+    <p id='about-p'>This application is currently written in Electron.js and is hosted on a Node web server. Since Electron powers the desktop support i can have access to more advanced features and personality for users that can be used offline. I am working on writing the API for access to this information between the users desktop device and browser with sharing and syncying of data. Currently offline use is buggy and will cause a major crash.</p>
+    <br>
+    <p id='about-p'>This project is primarily developed as a side hobby and has not been tested besides on my MacBook and Destop machine. I plan on evolvingh this software for years to come but I dont always know what features to add. If you would like to suggest a new feature i would gladly like tyo try to build it. (withing the scope of possibility). Visit my <span class='link-text' onclick='openExtUrl("https://github.com/tylerbadger23/");'>GitHub</span> to learn more and see the source code. </p>
+    <br>
+    <button id='learn-more-btn' class="btn" onclick='openExtUrl("https://github.com/tylerbadger23/");'>Learn More</button>
+</div>
+
+
+<script>
+
+function openExtUrl (url) { 
+    require('electron').shell.openExternal(url);
+}
+
+</script>
+</body>
+</html>

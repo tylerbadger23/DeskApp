@@ -19,6 +19,7 @@
 
 .nav-bg {
     background: #3F3D56;
+    
 }
 
 #products-fill {
@@ -35,6 +36,7 @@
 
 .nav-text {
     font-weight: 200;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding-top: 5px;
     font-size: 20px;
 }
@@ -56,17 +58,18 @@ ul li {
 }
 
 ul li a {
+    transition: border-bottom .7s;
     padding-bottom: 4px;
     color: white;
     border: none;
-    border-bottom: 3px solid transparent;
+    border-bottom: 1.2px solid transparent;
     text-decoration: none;
     outline: none;
 }
 ul li a:hover {
     color: white;
     border: none;
-    border-bottom: 1px solid #F50057;
+    border-bottom: 1.2px solid rgb(255, 255, 255);
     text-decoration: none;
     outline: none;
 }

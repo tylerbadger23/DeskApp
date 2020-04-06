@@ -9,9 +9,14 @@
     background-color: #F50057;
     color: rgb(255, 255, 255);
     margin-bottom: 10px;
-  
+    transition: background-color .3s;
+    margin-bottom: 20px;
 }
 
+
+#add-url:hover {
+    background-color: #3F3D56;
+}
 .url {
    color: rgb(17, 17, 17);
    font-size: 17px; 
