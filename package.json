@@ -1,6 +1,6 @@
 {
-  "name": "personal-utility",
-  "productName": "PersonalUtility",
+  "name": "desk-app",
+  "productName": "DeskApp",
   "version": "1.0.0",
   "description": "Peronal productivity app for desktop and laptop computers running osx and windows.",
   "main": "src/index.js",
