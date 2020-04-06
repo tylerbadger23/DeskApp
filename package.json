@@ -19,12 +19,14 @@
   "license": "MIT",
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": {
+        "icon": "/app/img/undraw_progressive_app_m9ms.ico"
+      },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "price_checker"
+            "name": "DeskApp"
           }
         },
         {
@@ -59,6 +61,6 @@
     "@electron-forge/maker-rpm": "^6.0.0-beta.50",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.50",
     "@electron-forge/maker-zip": "^6.0.0-beta.50",
-    "electron": "8.1.1"
+    "electron": "^8.1.1"
   }
 }
