@@ -1,25 +1,91 @@
-let allow_alerts =  document.getElementById("allow_alerts");
+const allow_alerts =  document.getElementById("allow_alerts");
+const alertSettings = document.getElementById("alert_settings");
+const editSettingsBtn = document.getElementById("edit-settings-btn");
+const saveSettingsBtn = document.getElementById("save-settings-btn");
+const saveWarningHolder = document.getElementById("save-warning");
+const settingsChangedArr = ["hello"];
 let alertsStatus;
+let settingsOn = false;
+let Product = {};
 
+setTimeout(async() => {
+   await setBasicProductStats(productId);
+   console.log(Product);
+}, 200);
 
-
-allow_alerts.addEventListener("click", async() => { // run function to update alerts wanted for product to db
-await database.loadDatabase((err) => { 
-        if(!err) {
-            updateAlertStatus(allow_alerts.value, database);
-        } else {
-            console.log(err);
-        }
-    });
-});
-
-
-async function updateAlertStatus(alerts, db, productId) {
-    db.find({_id: id}, (err, data) => {
+async function setBasicProductStats(productId) {
+    await database.loadDatabase();
+    await database.find({_id: productId}, (err, product) => {
         if(!err){
-            console.log(data);
+            Product.id = product[0]._id;
+            Product.alertSettings = product[0].alertSettings;
+            Product.wantsAlerts = product[0].alerts;
         } else {
             console.log("error loading products from db on click");
         }
     })
+}
+
+editSettingsBtn.addEventListener("click", () => {
+    if(settingsOn == false) {
+        toggelDisabled();
+        allowChangesToSettings();
+    }
+});
+
+saveSettingsBtn.addEventListener("click", async () => {
+    if(settingsOn == true && settingsChangedArr.length > 0) {
+        toggelDisabled();
+        disableSettingChanges();
+        showSaveSuccess("Your changes are now in effect!");
+    } else if(settingsOn) {
+        showSaveWarning("There is nothing here to save. You must make a change before you can save.");
+    }
+});
+
+async function toggelDisabled() {
+    alertSettings.disabled = !alertSettings.disabled;
+    allow_alerts.disabled = !allow_alerts.disabled;
+}
+
+async function disableSettingChanges() {
+    editSettingsBtn.classList = "btn btn-info";
+    saveSettingsBtn.classList = "displayNone";
+    settingsOn = false;
+}
+
+async function allowChangesToSettings() {
+    editSettingsBtn.classList = "displayNone";
+    saveSettingsBtn.classList = "btn btn-warning";
+    saveWarningHolder.style.outline = "none";
+    settingsOn = true;
+}
+
+function showSaveWarning(msg) {
+    saveWarningHolder.innerHTML = msg;
+    saveWarningHolder.classList = "alert alert-info";
+    saveWarningHolder.style.maxWidth = "550px";
+    setTimeout(()=> {
+        saveWarningHolder.innerHTML = '';
+        saveWarningHolder.classList = "displayNone";
+    }, 2000);
+}
+
+function showSaveSuccess(msg) {
+    saveWarningHolder.innerHTML = msg;
+    saveWarningHolder.style.maxWidth = "300px";
+    saveWarningHolder.classList = "alert alert-success";
+    setTimeout(()=> {
+        saveWarningHolder.innerHTML = '';
+        saveWarningHolder.classList = "displayNone";
+    }, 2600);
+}
+
+function setAlertStatus () {
+    let status = allow_alerts.value;
+    console.log(status);
+    if(alertsStatus == status) return false;
+    if(alertsStatus !== status) {
+
+    }
 }

@@ -37,7 +37,7 @@ async function crawl_product_page(productUrl) {
         if (!err) {
             let $ = cheerio.load(html);
             let price = $("#priceblock_ourprice").html();
-            let title = $("#productTitle").html().trim();
+            let title = $("#productTitle").html();
             let imageSc = $("#landingImage")[0].attribs["data-old-hires"];
             //
             //rsimageSc = imageSc.slice(1, -1);

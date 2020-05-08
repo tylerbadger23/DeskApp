@@ -7,7 +7,6 @@ let lowestPrice = document.getElementById("lowest-price");
 let lastCheckedDate = document.getElementById("last-checked-date");
 let updateInterval = 10000; // 10 seconds
 let allowAlerts = document.getElementById("allow_alerts");
-let selectedText;
 
 
 let selectedField = document.getElementById("selected-val");
@@ -48,6 +47,7 @@ async function getProductInformation(qid) { //pass id sent from other page
         
     });
 }
+
 getProductInformation(productId);
 
 setInterval(()=> {
