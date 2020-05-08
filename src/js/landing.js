@@ -15,7 +15,7 @@ async function list_products() {
                 let itemDiv = document.createElement("a");
                 itemDiv.classList.add("list-group-item", "list-group-item-action", "padding-bottom");
                 itemDiv.innerText = data[i].title;
-                itemDiv.href = `product.html?id=${data[i]._id}`;
+                itemDiv.href = `product.html?id=${data[i]._id}`; 
                 row.classList.add("list-group");
                 row.appendChild(itemDiv);
 

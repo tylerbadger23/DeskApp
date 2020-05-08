@@ -8,23 +8,16 @@ let alertsStatus;
 let settingsOn = false;
 let Product = {};
 
-setTimeout(async() => {
+
+//INITIAL FUNCTIONS
+
+setTimeout(async() => { // off load get basic product information
    await setBasicProductStats(productId);
    console.log(Product);
 }, 200);
 
-async function setBasicProductStats(productId) {
-    await database.loadDatabase();
-    await database.find({_id: productId}, (err, product) => {
-        if(!err){
-            Product.id = product[0]._id;
-            Product.alertSettings = product[0].alertSettings;
-            Product.wantsAlerts = product[0].alerts;
-        } else {
-            console.log("error loading products from db on click");
-        }
-    })
-}
+
+// Event Listeners
 
 editSettingsBtn.addEventListener("click", () => {
     if(settingsOn == false) {
@@ -42,6 +35,8 @@ saveSettingsBtn.addEventListener("click", async () => {
         showSaveWarning("There is nothing here to save. You must make a change before you can save.");
     }
 });
+
+//FUNCTIONS & METHODS
 
 async function toggelDisabled() {
     alertSettings.disabled = !alertSettings.disabled;
@@ -88,4 +83,20 @@ function setAlertStatus () {
     if(alertsStatus !== status) {
 
     }
+}
+
+
+// DB Functions 
+
+async function setBasicProductStats(productId) {
+    await database.loadDatabase();
+    await database.find({_id: productId}, (err, product) => {
+        if(!err){
+            Product.id = product[0]._id;
+            Product.alertSettings = product[0].alertSettings;
+            Product.wantsAlerts = product[0].alerts;
+        } else {
+            console.log("error loading products from db on click");
+        }
+    });
 }
