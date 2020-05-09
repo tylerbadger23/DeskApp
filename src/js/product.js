@@ -5,11 +5,11 @@ let amazonLink;
 let thumbnail = document.getElementById("thumbnail");
 let lowestPrice = document.getElementById("lowest-price");
 let lastCheckedDate = document.getElementById("last-checked-date");
-let updateInterval = 10000; // 10 seconds
+let updateInterval = 45000; // 45 seconds
 let allowAlerts = document.getElementById("allow_alerts");
 
 
-let selectedField = document.getElementById("selected-val");
+let selectedField = document.getElementById("alert_settings");
 
 if (window.location.search.indexOf('id') > -1) {
     let searchQuery = window.location.search;
@@ -34,7 +34,7 @@ async function getProductInformation(qid) { //pass id sent from other page
             productPrice.innerText =`Price: ${data.price}`;
             thumbnail.src = data.img;
             amazonLink = data.url;
-            selectedField.innerText = data.alertSettings;
+            selectedField.value = data.alertSettings;
             allowAlerts.checked = data.alerts;
             allowAlerts.value = data.alerts;
             lowestPrice = productPrice;

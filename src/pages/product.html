@@ -43,11 +43,10 @@
   <div class="form-row" id='not-settings'>
     <div class="form-group col-md-6">
       <label for="alert_settings">Notification Settings</label>
-      <select id="alert_settings" class="form-control" disabled>
-        <option value="true" selected id='selected-val' readonly></option >
-        <option value="false">No Alerts</option>
-        <option value="true">Price Decreases</option>
-        <option value="true">Item On Sale</option>
+      <select id="alert_settings" class="form-control" disabled onchange="changeNotificationSettings()">
+        <option value="No Alerts">No Alerts</option>
+        <option value="Price Decreases">Price Decreases</option>
+        <option value="Any Price Change">Any Price Change</option> 
       </select>
     </div>
   </div> 

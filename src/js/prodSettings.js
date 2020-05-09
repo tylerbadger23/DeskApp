@@ -4,16 +4,20 @@ const editSettingsBtn = document.getElementById("edit-settings-btn");
 const saveSettingsBtn = document.getElementById("save-settings-btn");
 const cancelSettingsBtn = document.getElementById("cancel-settings-btn");
 const saveWarningHolder = document.getElementById("save-warning");
-const settingsChangedArr = ["hello"];
+let settingsChanged = false;
+let changeNotiSetting = [];
 let alertsStatus;
 let settingsOn = false;
 let Product = {};
+
+let new_notification_status;
+let new_alert_status;
 //INITIAL FUNCTIONS
 
 
 setTimeout(async() => { // off load get basic product information
    await setBasicProductStats(productId);
-   console.log(Product);
+   new_alert_status = Product.alertSettings;
 }, 200);
 
 
@@ -21,7 +25,7 @@ setTimeout(async() => { // off load get basic product information
 
 editSettingsBtn.addEventListener("click", () => {
     if(settingsOn == false) {
-        toggelDisabled();
+        toggleDisabled();
         allowChangesToSettings();
     }
 });
@@ -31,12 +35,15 @@ cancelSettingsBtn.addEventListener("click", () => {
 });
 
 saveSettingsBtn.addEventListener("click", async () => {
-    if(settingsOn == true && settingsChangedArr.length > 0) {
-        toggelDisabled();
+    // check for changes in form before submitting to db
+    if(settingsOn == true && settingsChanged == true) {
+        saveChangesToDB(productId);
+        toggleDisabled();
         disableSettingChanges();
         showSaveSuccess("Your changes are now in effect!");
-    } else if(settingsOn) {
+    } else if(settingsOn) { // no changes so deny user ability to save
         showSaveWarning("There is nothing here to save. You must make a change before you can save.");
+        cancelBtnClick();
     }
 });
 
@@ -93,15 +100,26 @@ function showSaveSuccess(msg) {
     }, 2600);
 }
 
-function setAlertStatus () {
-    let status = allow_alerts.value;
-    console.log(status);
-    if(alertsStatus == status) return false;
-    if(alertsStatus !== status) {
-
+function changeNotificationSettings () {
+    settingsChanged = true;
+    old_notification_status = Product.alertSettings;
+    if(alertSettings.value == "Price Decreases") {
+        new_notification_status = "Price Decreases";
+    } else if(alertSettings.value== "No Alerts") {
+        new_notification_status = "No Alerts";
+    } else {
+        new_notification_status = "Any Price Change";
     }
+    console.log(new_notification_status);
 }
 
+function setAlertStatus () {
+    settingsChanged = true;
+    new_alert_status = !allow_alerts.value;
+}
+
+
+//EFFECTS & ASUDIO
 function playSuccessMP3 () {
     var sound = new Howl({
         src: ['../app/mp3/success.mp3']
@@ -109,6 +127,7 @@ function playSuccessMP3 () {
       
       sound.play();
 }
+
 
 
 // DB Functions 
@@ -123,5 +142,17 @@ async function setBasicProductStats(productId) {
         } else {
             console.log("error loading products from db on click");
         }
+    });
+}
+
+async function saveChangesToDB(productId) {
+     // Set a new price
+     await database.update({_id: productId }, { $set: { alerts: new_alert_status} }, {multi:true}, function (err) {
+        if(err) console.log(`Error updating : ${err}`);
+    });
+
+    // change num checks for testing
+    await database.update({_id: productId }, { $set: {alertSettings: new_notification_status } }, {multi:true}, function (err) {
+        if(err) console.log(`Error Updating ${err}`);
     });
 }

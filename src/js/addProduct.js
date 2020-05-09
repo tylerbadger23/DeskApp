@@ -45,9 +45,14 @@ async function crawl_product_page(productUrl) {
 
             alertType = alertSettings.value
 
-            if(enableAlerts == "false" || enableAlerts == false) {
+            if(enableAlerts == "Price Decreases") {
+                alertType = "Price Decreases";
+            } else if(enableAlerts == "No Alerts") {
                 alertType = "No Alerts";
-            }          
+            } else if (enableAlerts == "Any Price Change") {
+                alertType = "Any Price Change";
+            }  
+
             let data_arr = {
                 alerts: enableAlerts,
                 alertSettings: alertType,
@@ -89,10 +94,12 @@ function check_data_values(url) {
 function changeCheckBox(element) {
     let boxValue = document.getElementById(element).value;
     console.log(boxValue);
-    if(boxValue == "false") { //if the value is set
-        document.getElementById(element).value =  "true";
+    if(boxValue == "No Alerts") { //if the value is set
+        document.getElementById(element).value =  "No Alerts";
+    } else if(boxValue == "Price Decreases") {
+        document.getElementById(element).value = "Price Decreases";
     } else {
-        document.getElementById(element).value = "false"
+        document.getElementById(element).value = "Price Decreases";
     }
 
     console.log(`Value : ${boxValue}`);
