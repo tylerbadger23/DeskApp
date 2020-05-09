@@ -4,7 +4,7 @@ let Datastore = require("nedb");
 
 //cnstant timer for all startupos
 //should be waiting for promise returned aftyer checking pries
-let startupTimer = 1000;
+let startupTimer = 4000;
 
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
   app.quit(); //
@@ -17,6 +17,7 @@ const createWindow = () => {
       nodeIntegration: true
     },
     resizable: false,
+    show: false,
     autoHideMenuBar: true,
     width: 800,
     height: 430,
@@ -28,6 +29,7 @@ const createWindow = () => {
       nodeIntegration: true
     },
     resizable: true,
+    show: false,
     autoHideMenuBar: true,
     width: 1000,
     height: 900,
@@ -38,30 +40,33 @@ const createWindow = () => {
     webPreferences :{
       nodeIntegration: true
     },
+    show: false,
     resizable: true,
     autoHideMenuBar: true,
     width: 1450,
     height: 850,
-    frame: false
+    frame: true
   });
 
-  mainWindow.hide();
-  setTimeout(() => {
-    // Create the browser window.
-    bootWindow.close();
-    mainWindow.loadFile(path.join(__dirname, '/pages/landing.html'));
+  bootWindow.loadFile(path.join(__dirname, '/pages/splash.html'));
+  bootWindow.once('ready-to-show', () => {
+    bootWindow.show()
+  });
+  
+  mainWindow.once('ready-to-show', () => {
     mainWindow.show();
+  });
 
+  setTimeout(() => {
+    mainWindow.loadFile(path.join(__dirname, '/pages/landing.html'));
+    bootWindow.close();
     updateWindow.loadFile(path.join(__dirname, '/pages/update.html'));
-    updateWindow.webContents.openDevTools();
-    //updateWindow.hide();
-
+    updateWindow.hide();
   }, startupTimer);
 
-  bootWindow.loadFile(path.join(__dirname, '/pages/splash.html'));
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  //mainWindow.webContents.openDevTools();
   //updateWindow.webContents.openDevTools();
 
   

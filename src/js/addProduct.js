@@ -37,7 +37,7 @@ async function crawl_product_page(productUrl) {
         if (!err) {
             let $ = cheerio.load(html);
             let price = $("#priceblock_ourprice").html();
-            let title = $("#productTitle").html();
+            let title = $("#productTitle").html().trim();
             let imageSc = $("#landingImage")[0].attribs["data-old-hires"];
             //
             //rsimageSc = imageSc.slice(1, -1);
@@ -64,7 +64,7 @@ async function crawl_product_page(productUrl) {
                 window.location.assign(`search.html?err=true`);
             } else {
                 database.insert(data_arr);
-                window.location.assign(`landing.html`);
+                playSuccessMP3();
             }
              
         } else {     
@@ -96,4 +96,15 @@ function changeCheckBox(element) {
     }
 
     console.log(`Value : ${boxValue}`);
+}
+
+async function playSuccessMP3 () {
+    var sound = new Howl({
+        src: ['../app/mp3/success.mp3']
+      });
+      
+      sound.play();
+      setTimeout(()=> {
+        window.location.assign(`landing.html`);
+      }, 400)
 }

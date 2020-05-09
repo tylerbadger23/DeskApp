@@ -1,9 +1,13 @@
 #product-name {
-    font-size: 26px;
-    margin: 40px 1px 15px 0px;
-    width: 900px;
+    font-size: 28px;
+    margin: 10px 1px 10px 0px;
+    max-width: 90vw;
+    text-align: center;
     color: rgb(10, 10, 10);
-    
+}
+
+body {
+    overflow: hidden;
 }
 
 #not-settings {
@@ -26,8 +30,8 @@
 
 #product-price {
     margin-top: 14px;
-    float: left;
-    font-size: 24px;
+    text-align: left;
+    font-size: 25px;
 }
 
 #price-cheapest {
@@ -48,8 +52,8 @@
 }
 
 #thumbnail {
-    max-height: 300px;
-    max-width: 650px;
+    max-height: 32vh;
+    max-width: 30vw;
     margin: auto;
     text-align: center;
 }
@@ -68,9 +72,6 @@
     max-height: 300px;
 }
 
-#prices-week {
-    max-height: 500px;
-}
 
 .saveBtn-gen {
     padding: 8px 12px;
@@ -96,3 +97,55 @@
   .saveBtnActive:hover {
       color: white;
   }
+
+  /* On screens that are xpx or more, set the background color to blue */
+@media screen and (min-width: 1355px) {
+    #product-name {
+        font-size: 30px;
+        margin: 10px 1px 10px 0px;
+        max-width: 92vw;
+        text-align: left;
+        color: rgb(10, 10, 10);
+    }
+
+    #thumbnail {
+        max-height: 31vh;
+        max-width: 45vw;
+        margin: auto;
+        text-align: center;
+        margin-bottom: 5px;
+    }
+
+    #product-price {
+        margin-top: 20px;
+        text-align: left;
+        font-size: 26px;
+    }
+
+  }
+  
+  @media screen and (max-width: 720px) {
+      
+    #product-price {
+        margin-top: 15px;
+        text-align: left;
+        font-size: 24px;
+    }
+
+    #thumbnail {
+        max-height: 30vh;
+        max-width: 50vw;
+        margin: auto;
+        text-align: center;
+    }
+
+    #product-name {
+        font-size: 26px;
+        margin: 0px 1px 7px 0px;
+        max-width: 95vw;
+        text-align: center;
+        color: rgb(10, 10, 10);
+    }
+
+  }
+  
