@@ -8,6 +8,7 @@ let lastCheckedDate = document.getElementById("last-checked-date");
 let updateInterval = 60000; // 60- seconds
 let allowAlerts = document.getElementById("allow_alerts");
 let alerts;
+let new_notification_status;
 
 let selectedField = document.getElementById("alert_settings");
 

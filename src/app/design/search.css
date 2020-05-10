@@ -40,6 +40,7 @@ img {
   transition: background-color .5s;
   color: rgb(255, 255, 255);
 }
+
 #submitBtn:hover {
   background-color: #3F3D56;
 }

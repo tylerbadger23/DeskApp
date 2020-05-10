@@ -3,7 +3,7 @@
     margin: 10px 1px 10px 0px;
     max-width: 90vw;
     text-align: center;
-    color: rgb(10, 10, 10);
+    color: #3F3D56;
 }
 
 body {
@@ -90,12 +90,12 @@ body {
   }
 
   .saveBtnActive {
-    background-color: #3F3D56;
-    color: white;
+    background-color: #F50057;
+    color: rgb(255, 255, 255);
   }
 
   .saveBtnActive:hover {
-      color: white;
+      background: #3F3D56;
   }
 
   /* On screens that are xpx or more, set the background color to blue */

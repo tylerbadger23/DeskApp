@@ -1,3 +1,4 @@
+
 const allow_alerts =  document.getElementById("allow_alerts");
 const alertSettings = document.getElementById("alert_settings");
 const editSettingsBtn = document.getElementById("edit-settings-btn");
@@ -10,8 +11,6 @@ let alertsStatus;
 let settingsOn = false;
 let Product = {};
 
-let new_notification_status;
-let enableAlerts;
 //INITIAL FUNCTIONS
 
 
@@ -40,7 +39,7 @@ saveSettingsBtn.addEventListener("click", async () => {
         await saveChangesToDB(Product.id);
         await toggleDisabled();
         await disableSettingChanges();
-        await showSaveSuccess("Your changes are now in effect!");
+        showSaveSuccess("Your changes are now in effect!");
     } else if(settingsOn) { // no changes so deny user ability to save
         showSaveWarning("There is nothing here to save. You must make a change before you can save.");
         cancelBtnClick();
@@ -71,8 +70,9 @@ async function cancelBtnClick() {
 
 async function allowChangesToSettings() {
     editSettingsBtn.classList = "displayNone";
-    cancelSettingsBtn.classList = "btn btn-info";
-    saveSettingsBtn.classList = "btn btn-dark";
+    cancelSettingsBtn.classList = "btn btn-dark";
+    saveSettingsBtn.classList = "btn btn-primary"
+
     saveWarningHolder.style.outline = "none";
     settingsOn = true;
 }
@@ -114,8 +114,8 @@ function changeNotificationSettings () {
 }
 
 function changeCheckBox(element) {
-    enableAlerts = !enableAlerts;
-    console.log(enableAlerts);
+    alerts = !alerts;
+    console.log(alerts);
 }
 
 
@@ -148,17 +148,27 @@ async function setBasicProductStats(productId) {
 async function saveChangesToDB(productId) {
      // Set a new price
      console.log(alertSettings.value);
-     console.log(enableAlerts);
-     await database.loadDatabase();
-     await database.update({_id: productId }, { $set: { alerts: enableAlerts} }, {multi:true}, function (err, replaced) {
-        if(err) console.log(`Error updating : ${err}`);
-    });
+     console.log(alerts);
+     database.loadDatabase()
+     console.log("db loaded");
+     changeSettingsValue(productId, changeBoolAlerts); // db calls
+     getProductInformation(productId);
+}
 
-    // change num checks for testing
-    await database.update({_id: productId }, { $set: {alertSettings: alertSettings.value} }, {multi:true}, function (err, replaced) {
-        if(err) console.log(`Error Updating ${err}`);
+function loadDB (db) {
+    
+}
+
+async function changeBoolAlerts (productId) {
+    await database.update({_id: productId }, { $set: { alerts: alerts} }, {multi:true}, function (err, replaced) {
+        if(!err) console.log(`Error updating : ${err}`);
     });
-    await getProductInformation(productId);
-    await setBasicProductStats(productId);
-    enableAlerts = alerts;
+}
+
+function changeSettingsValue (productId, callback) {
+    database.update({_id: productId }, { $set: {alertSettings: alertSettings.value} }, {multi:true}, function (err, replaced) {
+        if(!err) console.log(`Error Updating ${err}`);
+        console.log("finished");
+    });
+    callback(productId); // run next db call
 }

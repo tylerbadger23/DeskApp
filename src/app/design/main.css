@@ -74,4 +74,12 @@ ul li a:hover {
     outline: none;
 }
 
-
+ .pinkBtn {
+    background-color: #F50057;
+    transition: background-color .5s;
+    color: rgb(255, 255, 255);
+  }
+  
+  .pinkBtn:hover {
+    background-color: #3F3D56;
+  }
