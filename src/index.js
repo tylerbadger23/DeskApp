@@ -31,8 +31,8 @@ const createWindow = () => {
     resizable: true,
     show: false,
     autoHideMenuBar: true,
-    width: 1000,
-    height: 900,
+    width: 800,
+    height: 600,
     frame: true
   });
 
@@ -61,13 +61,13 @@ const createWindow = () => {
     mainWindow.loadFile(path.join(__dirname, '/pages/landing.html'));
     bootWindow.close();
     updateWindow.loadFile(path.join(__dirname, '/pages/update.html'));
-    updateWindow.hide();
+    updateWindow.show();
   }, startupTimer);
 
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
-  //updateWindow.webContents.openDevTools();
+  updateWindow.webContents.openDevTools();
 
   
   mainWindow.frame = false;

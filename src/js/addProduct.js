@@ -11,9 +11,6 @@ let product_url = document.getElementById("product_url");
 let enableAlerts = false;
 
 submitBtn.addEventListener("click", async() => {
-
-
-
     if(check_data_values(product_url.value) == false) { //checkj if errors exist
         console.log("Crawling started");
         await crawl_product_page(product_url.value);
@@ -27,41 +24,50 @@ submitBtn.addEventListener("click", async() => {
 
 async function crawl_product_page(productUrl) {
     request(productUrl, function(err, resp, html) {
+        let productIsActive = false;
         if (!err) {
             let $ = cheerio.load(html);
-            let price = $("#priceblock_ourprice").html();
-            let title = $("#productTitle").html().trim();
-            let imageSc = $("#landingImage")[0].attribs["data-old-hires"];
+            let title;
+            let price;
+            let imageSc;
+            try { 
+            price = $("#priceblock_ourprice").html();
+            title = $("#productTitle").html().trim();
+            imageSc = $("#landingImage")[0].attribs["data-old-hires"];
+
+            } catch (err) {
+                console.log(err);
+            } 
             //
             //rsimageSc = imageSc.slice(1, -1);
-            console.log(imageSc);
-
+            // CHECK for price to be set
+            if(typeof title !== "string") {
+                window.location.assign(`search.html`);
+            }
+            if(typeof price == "string") productIsActive = true;
+            
+            
             alertType = alertSettings.value
-
-         
             let data_arr = {
                 alerts: enableAlerts,
                 alertSettings: alertType,
                 title: title,
                 price: price,
+                lastKnownPrice: price,
                 cheapestPrice: price,
                 url: productUrl,
                 img: imageSc,
                 date_last: Date.now(),
-                num_checks: 1
+                num_checks: 1, 
+                isActive: productIsActive
             };
 
-            if(price == null || title == null) { // error scraping data
-                window.location.assign(`search.html?err=true`);
-            } else {
                 database.insert(data_arr);
                 playSuccessMP3();
-            }
-             
+        
         } else {     
             window.location.assign(`search.html?err=true`);
         }
-    
     }); 
 }
 

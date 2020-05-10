@@ -71,8 +71,7 @@ async function cancelBtnClick() {
 async function allowChangesToSettings() {
     editSettingsBtn.classList = "displayNone";
     cancelSettingsBtn.classList = "btn btn-dark";
-    saveSettingsBtn.classList = "btn btn-primary"
-
+    saveSettingsBtn.classList = "btn btn-primary";
     saveWarningHolder.style.outline = "none";
     settingsOn = true;
 }

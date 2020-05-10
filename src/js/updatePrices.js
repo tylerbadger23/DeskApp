@@ -7,48 +7,53 @@ let halfHour = 1800000;
 let fiveMinutes = 300000;
 let halfMin = 30000;
 
-let devInterval = 1800000;
+let devInterval = 10000;
 
-async function updateProduct(id, url, price, numChecks, title, wantsAlerts, cheapestEverPrice) {
-    let alertsActive = wantsAlerts;
+async function updateProduct(id, url, price, numChecks, title, wantsAlerts, cheapestEverPrice, isActive) {
+    let productIsActive = isActive;
+    let productWasActive = isActive;
+
     request(url, async function(err, resp, html) {
         if (!err) {
             let $ = cheerio.load(html);
             let new_price = $("#priceblock_ourprice").html();
             let new_num_checks = numChecks + 1;
 
-            /*
-            //TEST VARS
-            let dev1 = 8;
-            let dev2 = 12;
-            let dev3 = 16;
+            if(typeof new_price == "string") {
+                
+                // check prices and then send notification if user is on
+                if(productIsActive == productWasActive) { // means just changed to active
+                    comparePricesDifferent(cheapestEverPrice, price, new_price, title, id, database);
+                }
 
-            
-            if(numChecks >= dev1 && numChecks < dev2) {
-                new_price = "$1,099.00"; 
-            } else if(numChecks >= dev3) {    
-                new_price = "$996.68";
+                // change last know price
+                await database.update({_id: id }, { $set: { lastKnownPrice: new_price } }, {multi:true}, function (err, numReplaced) {
+                    if(!err) {console.log(`Updated ${id} in db num checks ++ ${new_num_checks}`);}
+                });
+
+                await database.update({_id: id }, { $set: { price: new_price } }, {multi:true}, function (err, numReplaced) {
+                    if(!err) {console.log(`Updated ${id} price in db:  ${new_price}`);}
+                });
+            } else {
+                productIsActive = false; // product is not active
+                await database.update({_id: id }, { $set: { price: new_price } }, {multi:true}, function (err, numReplaced) {
+                    if(!err) {console.log(`Updated ${id} price in db:  ${new_price}`);}
+                });
             }
-*/
-            // check prices and then send notification if user is on
-            comparePricesDifferent(cheapestEverPrice, price, new_price, title, id, database);
-              
 
-           // Set a new price
-            await database.update({_id: id }, { $set: { price: new_price } }, {multi:true}, function (err, numReplaced) {
-                if(!err) {console.log(`Updated ${id} price in db:  ${numReplaced}`);}
+            // change num checks for testing
+            await database.update({_id: id }, { $set: { num_checks: new_num_checks } }, {multi:true}, function (err, numReplaced) {
+                if(!err) {console.log(`Updated ${id} in db num checks ++ ${new_num_checks}`);}
             });
-
             // change num checks for testing
             await database.update({_id: id }, { $set: { date_last: Date.now() } }, {multi:true}, function (err, numReplaced) {
                 if(!err) {console.log(`Updated ${id} in db date: ${Date.now()}`);}
             });
 
             // change num checks for testing
-            await database.update({_id: id }, { $set: { num_checks: new_num_checks } }, {multi:true}, function (err, numReplaced) {
-                if(!err) {console.log(`Updated ${id} in db num checks ++ ${new_num_checks}`);}
+            await database.update({_id: id }, { $set: { isActive: productIsActive } }, {multi:true}, function (err, numReplaced) {
+                if(!err) {console.log(`Updated ${id} product's isActive: ${productIsActive}`);}
             });
-
       } else {
         window.location.reload();
         console.log(err);
@@ -72,7 +77,7 @@ async function startUpdating () { //get all products crwaled
                 console.log(`Data arr is less then one. no update happened`);
             }
             for(let i = 0; i < data.length; i++) { // for each profuct in products.db update it with function
-                updateProduct(data[i]._id, data[i].url, data[i].price, data[i].num_checks, data[i].title, data[i].alerts, data[i].cheapestPrice);
+                updateProduct(data[i]._id, data[i].url, data[i].price, data[i].num_checks, data[i].title, data[i].alerts, data[i].cheapestPrice, data[i].isActive);
             }
         } else { // error :(
             console.log("fatal error updating product prices");
@@ -84,12 +89,11 @@ let updateInterval = devInterval; //interval for updating data
 
 
 setTimeout(()=> {
-    console.log("Init started")
     setInterval(()=> { //update db after every x miliseconds
         startUpdating();
-        console.log("Interval started");
-    }, updateInterval)
-}, 1000)
+        console.log("Init started");
+    }, updateInterval + 20000)
+}, 1000);
 
 function sendNotification(header, msg) {
     let myNotification = new Notification(header.toString(), {
