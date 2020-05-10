@@ -32,7 +32,8 @@
   <h2 id='product-name'></h2> 
   <div class="product-info" style="margin-bottom: 10px;">
     <br>
-    <div class="img-container"><img id='thumbnail'></div>
+    <div class="grid-l-r">
+      <div class="img-container"><img id='thumbnail'></div>
     <div class="row" style="margin-top: 20px">
       <h3 class='col-sm-3' id="product-price"></h3>
     </div>
@@ -51,7 +52,7 @@
     </div>
   </div> 
   <div class="form-group form-check">
-    <input type="checkbox" class="form-check-input" id="allow_alerts" disabled onclick="setAlertStatus();">
+    <input type="checkbox" class="form-check-input" id="allow_alerts" disabled onclick="changeCheckBox()">
     <label class="form-check-label" for="allow_monitoring">Allow Desktop Notifications</label>
     <small id="allow_monitoring" class="form-text text-muted" style='width: 400px;'>If checked, this app be allowed access to send notifications when this product reduces in price.</small>
     
@@ -64,7 +65,10 @@
 
 
 
-
+      <div class="historyData">
+  
+      </div>
+    </div>
 <script src="../js/product.js" defer></script>
 <script src="../js/prodSettings.js" defer></script>
 </body>

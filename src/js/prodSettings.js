@@ -11,14 +11,14 @@ let settingsOn = false;
 let Product = {};
 
 let new_notification_status;
-let new_alert_status;
+let enableAlerts;
 //INITIAL FUNCTIONS
 
 
 setTimeout(async() => { // off load get basic product information
    await setBasicProductStats(productId);
-   new_alert_status = Product.alertSettings;
-}, 200);
+   enableAlerts = Product.wantsAlerts;
+}, 100);
 
 
 // Event Listeners
@@ -36,11 +36,11 @@ cancelSettingsBtn.addEventListener("click", () => {
 
 saveSettingsBtn.addEventListener("click", async () => {
     // check for changes in form before submitting to db
-    if(settingsOn == true && settingsChanged == true) {
-        saveChangesToDB(productId);
-        toggleDisabled();
-        disableSettingChanges();
-        showSaveSuccess("Your changes are now in effect!");
+    if(settingsOn == true) {
+        await saveChangesToDB(Product.id);
+        await toggleDisabled();
+        await disableSettingChanges();
+        await showSaveSuccess("Your changes are now in effect!");
     } else if(settingsOn) { // no changes so deny user ability to save
         showSaveWarning("There is nothing here to save. You must make a change before you can save.");
         cancelBtnClick();
@@ -113,9 +113,9 @@ function changeNotificationSettings () {
     console.log(new_notification_status);
 }
 
-function setAlertStatus () {
-    settingsChanged = true;
-    new_alert_status = !allow_alerts.value;
+function changeCheckBox(element) {
+    enableAlerts = !enableAlerts;
+    console.log(enableAlerts);
 }
 
 
@@ -147,12 +147,18 @@ async function setBasicProductStats(productId) {
 
 async function saveChangesToDB(productId) {
      // Set a new price
-     await database.update({_id: productId }, { $set: { alerts: new_alert_status} }, {multi:true}, function (err) {
+     console.log(alertSettings.value);
+     console.log(enableAlerts);
+     await database.loadDatabase();
+     await database.update({_id: productId }, { $set: { alerts: enableAlerts} }, {multi:true}, function (err, replaced) {
         if(err) console.log(`Error updating : ${err}`);
     });
 
     // change num checks for testing
-    await database.update({_id: productId }, { $set: {alertSettings: new_notification_status } }, {multi:true}, function (err) {
+    await database.update({_id: productId }, { $set: {alertSettings: alertSettings.value} }, {multi:true}, function (err, replaced) {
         if(err) console.log(`Error Updating ${err}`);
     });
+    await getProductInformation(productId);
+    await setBasicProductStats(productId);
+    enableAlerts = alerts;
 }

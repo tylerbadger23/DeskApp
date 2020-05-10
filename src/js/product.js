@@ -5,9 +5,9 @@ let amazonLink;
 let thumbnail = document.getElementById("thumbnail");
 let lowestPrice = document.getElementById("lowest-price");
 let lastCheckedDate = document.getElementById("last-checked-date");
-let updateInterval = 45000; // 45 seconds
+let updateInterval = 60000; // 60- seconds
 let allowAlerts = document.getElementById("allow_alerts");
-
+let alerts;
 
 let selectedField = document.getElementById("alert_settings");
 
@@ -40,6 +40,7 @@ async function getProductInformation(qid) { //pass id sent from other page
             lowestPrice = productPrice;
             lastCheckedDate = data.date_last;
             console.log(data);
+            alerts = data.alerts;
         } else {
             console.log(error)
             window.location.assign("404.html");

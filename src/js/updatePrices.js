@@ -7,7 +7,7 @@ let halfHour = 1800000;
 let fiveMinutes = 300000;
 let halfMin = 30000;
 
-let devInterval = 8000; // 8 seconds for updates
+let devInterval = 1800000;
 
 async function updateProduct(id, url, price, numChecks, title, wantsAlerts, cheapestEverPrice) {
     let alertsActive = wantsAlerts;

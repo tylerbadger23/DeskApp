@@ -46,14 +46,15 @@
             <label for="alert_settings">Notification Settings</label>
             <select id="alert_settings" class="form-control">
               <option value="No Alerts" selected>Select Notification Preference</option>
-              <option value="Price Decreases">No Alerts</option>
+              <option value="No Alerts">No Alerts</option>
+              <option value="Price Decreases">Price Decreases</option>
               <option value="Any Price Change">Any Price Change</option>
             </select>
           </div>
 
         </div>
         <div class="form-group form-check">
-          <input type="checkbox" class="form-check-input" id="allow_monitoring" value='false' onclick="changeCheckBox('allow_monitoring')">
+          <input type="checkbox" class="form-check-input" id="allow_monitoring" value='false' onclick="changeCheckBox()">
           <label class="form-check-label" for="allow_monitoring">Allow Desktop Notifications</label>
           <small id="allow_monitoring" class="form-text text-muted" style='width: 400px;'>If checked, this app be allowed access to send notifications when this product reduces in price.</small>
         </div>

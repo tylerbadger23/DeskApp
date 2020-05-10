@@ -7,17 +7,10 @@ let submitBtn = document.getElementById("submitBtn");
 let product_name = document.getElementById("product_name");
 let alertSettings = document.getElementById("alert_settings");
 let product_url = document.getElementById("product_url");
-let userAlerts = document.getElementById("allow_monitoring");
 
 let enableAlerts = false;
 
 submitBtn.addEventListener("click", async() => {
-
-    if(userAlerts.value == "true" || userAlerts.value == "checked") {
-        enableAlerts = true;
-    } else {
-        enableAlerts = false;
-    }
 
 
 
@@ -45,14 +38,7 @@ async function crawl_product_page(productUrl) {
 
             alertType = alertSettings.value
 
-            if(enableAlerts == "Price Decreases") {
-                alertType = "Price Decreases";
-            } else if(enableAlerts == "No Alerts") {
-                alertType = "No Alerts";
-            } else if (enableAlerts == "Any Price Change") {
-                alertType = "Any Price Change";
-            }  
-
+         
             let data_arr = {
                 alerts: enableAlerts,
                 alertSettings: alertType,
@@ -92,17 +78,8 @@ function check_data_values(url) {
 }
 
 function changeCheckBox(element) {
-    let boxValue = document.getElementById(element).value;
-    console.log(boxValue);
-    if(boxValue == "No Alerts") { //if the value is set
-        document.getElementById(element).value =  "No Alerts";
-    } else if(boxValue == "Price Decreases") {
-        document.getElementById(element).value = "Price Decreases";
-    } else {
-        document.getElementById(element).value = "Price Decreases";
-    }
-
-    console.log(`Value : ${boxValue}`);
+    enableAlerts = !enableAlerts;
+    console.log(enableAlerts);
 }
 
 async function playSuccessMP3 () {
