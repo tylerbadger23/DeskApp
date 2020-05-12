@@ -23,6 +23,7 @@ submitBtn.addEventListener("click", async() => {
 })
 
 async function crawl_product_page(productUrl) {
+    database.loadDatabase();
     request(productUrl, function(err, resp, html) {
         let productIsActive = false;
         if (!err) {
@@ -42,7 +43,7 @@ async function crawl_product_page(productUrl) {
             //rsimageSc = imageSc.slice(1, -1);
             // CHECK for price to be set
             if(typeof title !== "string") {
-                window.location.assign(`search.html`);
+               window.location.assign(`search.html`);
             }
             if(typeof price == "string") productIsActive = true;
             
@@ -66,7 +67,7 @@ async function crawl_product_page(productUrl) {
                 playSuccessMP3();
         
         } else {     
-            window.location.assign(`search.html?err=true`);
+           window.location.assign(`search.html?err=true`);
         }
     }); 
 }

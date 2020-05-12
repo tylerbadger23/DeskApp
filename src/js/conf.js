@@ -3,8 +3,8 @@ database = new Datastore("products.db");
 database.loadDatabase();
 
 
-urls = new Datastore("urls.db");
-urls.loadDatabase();
+AppUser = new Datastore("appUsr.db");
+AppUser.loadDatabase();
 
 const remote = require('electron').remote;
 
