@@ -1,12 +1,15 @@
 const { app, BrowserWindow, Menu } = require('electron');
 const path = require('path');
+let loadPage = "register.html";
 let Datastore = require("nedb");
 
+AppUser = new Datastore("appUsr.db");
+AppUser.loadDatabase();
 //cnstant timer for all startupos
 //should be waiting for promise returned aftyer checking pries
 let startupTimer = 4000;
-
-if (require('electron-squirrel-startup')) { 
+userAccountExists(AppUser);
+if (require('electron-squirrel-startup')) {
   app.quit(); //
 }
 
@@ -48,27 +51,29 @@ const createWindow = () => {
     frame: true
   });
 
+
   bootWindow.loadFile(path.join(__dirname, '/pages/splash.html'));
   bootWindow.once('ready-to-show', () => {
     bootWindow.show()
   });
-  
+
   mainWindow.once('ready-to-show', () => {
     mainWindow.show();
   });
 
+
   setTimeout(() => {
-    mainWindow.loadFile(path.join(__dirname, '/pages/register.html'));
+    mainWindow.loadFile(path.join(__dirname, `/pages/${loadPage}`));
     bootWindow.close();
     updateWindow.loadFile(path.join(__dirname, '/pages/update.html'));
   }, startupTimer);
 
 
   // Open the DevTools.
-  //mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
   //updateWindow.webContents.openDevTools();
 
-  
+
   mainWindow.frame = false;
 };
 
@@ -93,7 +98,7 @@ const createWindow = () => {
   ];
 
   Menu.setApplicationMenu(Menu.buildFromTemplate(template));
-  
+
 
 app.on('ready', createWindow);
 // Quit when all windows are closed.
@@ -109,3 +114,14 @@ app.on('activate', () => {
     createWindow();
   }
 });
+
+
+async function userAccountExists(AppUser) {
+  await AppUser.find({}, (err, data) => {
+    if(data.length == 1) {
+      loadPage = "landing.html";
+    } else {
+      loadPage = "register.html";
+    }
+  });
+}
