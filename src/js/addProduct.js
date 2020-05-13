@@ -1,5 +1,5 @@
 let cheerio = require('cheerio');
-let request = require('request');
+let got = require("got");
 let fs = require("fs");
 //define elements
 let submitBtn = document.getElementById("submitBtn");
@@ -15,7 +15,8 @@ let User = {};
 submitBtn.addEventListener("click", async() => {
 
     if(check_data_values(product_url.value) == false) { //checkj if errors exist
-        getProductData(product_url.value)
+        requestHTML(product_url.value).then((html) => {
+          getProductData(html, product_url.value)
           .then((Product) => {
             addProductToExternalDB(_User, Product) // add product via api call post
               .then((reponse) => {
@@ -27,8 +28,14 @@ submitBtn.addEventListener("click", async() => {
               console.log(`${err}`);
             });
           }).catch((err) => {// if error with request then reload the page and allow user to try again
-            window.location.assign(`search.html?errorMsg=${err}`);
+            console.log(err);
+            //window.location.assign(`search.html?errorMsg=${err}`);
           });
+        }).catch((err) => {
+          console.log(err);
+          var errMsg = "An invalid url was entered. Make sure its a product on amazon."
+          window.location.assign(`search.html?errMsg=${errMsg}`);
+        });
     } else {
         product_url.value = "";
         let errMsg = "Invalid url was given to the server";
@@ -36,19 +43,16 @@ submitBtn.addEventListener("click", async() => {
     }
 })
 
-async function getProductData(productUrl) {
+async function getProductData(html, productUrl) {
   // define GLOBAL fuction variables
   let title;
   let price;
   let imageSc;
   // promise whuich will return product information or error
   return new Promise((resolve, reject) =>{
-    let Product = {}; // return product after success
     let productIsActive = false;
-    request(productUrl, (err, response, html) => { // make request to amazon product page
 
-      if(!err) { // no error loading request
-        let $ = cheerio.load(html); // load html page
+    let $ = cheerio.load(html); // load html page
         price = $("#priceblock_ourprice").html(); // price on amazon
         title = $("#productTitle").html().trim(); // timmed title on amazon
         imageSc = $("#landingImage")[0].attribs["data-old-hires"]; // image from amazon
@@ -70,10 +74,7 @@ async function getProductData(productUrl) {
         };
 
         resolve(Product); // return product after finished
-      } else {
-        reject(`Request Failed: ${err}`);
-      }
-    });
+      
   });
 }
 
@@ -135,4 +136,16 @@ async function playSuccessMP3 () {
         resolve();
       }, 300);
   })
+}
+
+async function requestHTML(url) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await got(url);
+      resolve(response.body);
+    } catch(error) {
+      var errMsg = "An invalid url was entered. Make sure its a product on amazon."
+      window.location.assign(`search.html?errMsg=${errMsg}`);
+    }
+  });
 }

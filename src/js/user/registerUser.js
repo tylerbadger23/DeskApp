@@ -31,6 +31,7 @@ submitBtn.addEventListener("click", () => {
             if(response.err == false) {
                 setUserLoggedIn(response);
             } else {
+                console.log(response.errMsg);
                 window.location.assign(`register.html`);
             }
         }).catch((error) => {
