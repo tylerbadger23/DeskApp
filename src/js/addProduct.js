@@ -19,9 +19,12 @@ submitBtn.addEventListener("click", async() => {
           .then((Product) => {
             addProductToExternalDB(_User, Product) // add product via api call post
               .then((reponse) => {
-                window.location.assign(`landing.html?success=${response}`);
+                playSuccessMP3().then((success) => { // after success sfx return to landing page with
+                  // success msg in the url
+                  window.location.assign(`landing.html`);
+                }).catch((err) => console.log(err)); //  if mp3 fails then throw error
             }).catch((err) => {
-              console.log(`errr`);
+              console.log(`${err}`);
             });
           }).catch((err) => {// if error with request then reload the page and allow user to try again
             window.location.assign(`search.html?errorMsg=${err}`);
@@ -122,12 +125,14 @@ function changeCheckBox(element) {
 }
 
 async function playSuccessMP3 () {
-    var sound = new Howl({
+  return new Promise((resolve, reject)=> {
+    let sound = new Howl({
         src: ['../app/mp3/success.mp3']
       });
 
       sound.play();
       setTimeout(()=> {
-        window.location.assign(`landing.html`);
-      }, 400)
+        resolve();
+      }, 300);
+  })
 }

@@ -70,7 +70,7 @@ const createWindow = () => {
 
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  //mainWindow.webContents.openDevTools();
   //updateWindow.webContents.openDevTools();
 
 
@@ -118,7 +118,12 @@ app.on('activate', () => {
 
 async function userAccountExists(AppUser) {
   await AppUser.find({}, (err, data) => {
-    if(data.length == 1) {
+    if(data.length == 1 && data[0].stayesLoggedIn == false) {
+      loadPage = "login.html";
+      AppUser.remove({}, { multi: true }, function (err) { // remove db data if user wants to re-login
+        if(err) console.log(err);
+      });
+    } else if(data.length == 1) {
       loadPage = "landing.html";
     } else {
       loadPage = "register.html";

@@ -87,7 +87,10 @@ async function setUserLoggedIn(response) {
         userId: usr_id
     }, (err) => {if(err) console.log(`${err}`) });
 
-    window.location.assign(`landing.html`);
+    playSuccessMP3()
+      .then((success) => {
+        window.location.assign("landing.html");
+    }).catch((err) => console.log(err));
 }
 
 async function checkIfAlreadyUser(userDB) {
@@ -95,6 +98,7 @@ async function checkIfAlreadyUser(userDB) {
         userDB.find({}, (err, results) => {
             if(!err) {
                 if(results.length == 1) {
+                    console.log(results[0].stayesLoggedIn);
                     resolve(results[0]);
                 } else if(results.length > 1){
                     reject('Multiple accounts found');
@@ -105,4 +109,18 @@ async function checkIfAlreadyUser(userDB) {
         })
 
     });
+}
+
+// SFX for success on register
+async function playSuccessMP3 () {
+  return new Promise((resolve, reject)=> {
+    let sound = new Howl({
+        src: ['../../app/mp3/success.mp3']
+      });
+
+      sound.play();
+      setTimeout(()=> {
+        resolve();
+      }, 300);
+  })
 }
