@@ -1,5 +1,7 @@
-# Personal Companion Desktop App (DeskApp)
+# Personal Amazon Product Tracking App
 Personal Amazon price tracking  application that has a web api and desktop app for tracking product prices on amazon. I'm working on the windows 10 and OSX version using Electron and the web api is written using MondoDB and Node/Express. 
+
+Tracks prices and availability over time. Sending push notificatons and email alerts to the user if the price drops inprice, or goes out of/ back in stock. 
 
 Currenty there are plans for adding apple watch support with push notifications, but that is still a distant reality. 
 Currently this app is trying to get integrated with the web api. The web api is currenltly able to track prices on set intervals and update and send push notifcations via email and if the deskop application is open the. it will send a notification to that. 
