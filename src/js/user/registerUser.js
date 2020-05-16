@@ -84,7 +84,7 @@ async function setUserLoggedIn(response) {
         email: usr_email,
         username: usr_username,
         dateAdded: Date.now(),
-        stayesLoggedIn: true,
+        staysLoggedIn: "false",
         userId: usr_id
     }, (err) => {if(err) console.log(`${err}`) });
 

@@ -118,7 +118,7 @@ app.on('activate', () => {
 
 async function userAccountExists(AppUser) {
   await AppUser.find({}, (err, data) => {
-    if(data.length == 1 && data[0].stayesLoggedIn == false) {
+    if(data.length == 1 && data[0].staysLoggedIn == false || data.length == 1 && data[0].staysLoggedIn == "false") {
       loadPage = "login.html";
       AppUser.remove({}, { multi: true }, function (err) { // remove db data if user wants to re-login
         if(err) console.log(err);

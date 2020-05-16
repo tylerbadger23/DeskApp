@@ -45,24 +45,24 @@
             </div>
             <div class="row">
               <div class="col mt-4">
-                <input type="text" class="form-control" placeholder="Email">
+                <input type="text" class="form-control" placeholder="Email" id='login-email' required>
               </div>
             </div>
             <div class="row mt-4">
               <div class="col">
-                <input type="password" class="form-control" placeholder="Password">
+                <input type="password" class="form-control" placeholder="Password" id='login-password' required>
               </div>
             </div>
             <div class="row justify-content-start mt-4">
               <div class="col">
                 <div class="form-check">
                   <label class="form-check-label">
-                      <input type="checkbox" class="form-check-input">
+                      <input type="checkbox" class="form-check-input" id='login-stay'>
                       Stay Logged In</a>
                     </label>
                 </div>
 
-                <button class="btn btn-primary mt-4">Submit</button>
+                <button class="btn btn-primary mt-4" id='login-btn'>Submit</button>
               </div>
             </div>
           </div>
@@ -70,6 +70,6 @@
       </div>
     </section>
 
-  <script src="../js/user/loginUser.js"></script>
+  <script src="../js/user/loginUser.js" defer></script>
   </body>
 </html>
