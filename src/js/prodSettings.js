@@ -154,16 +154,19 @@ async function saveChangesToDB(productId) {
      getProductInformation(productId);
 }
 
+function loadDB (db) {
+    
+}
 
 async function changeBoolAlerts (productId) {
     await database.update({_id: productId }, { $set: { alerts: alerts} }, {multi:true}, function (err, replaced) {
-        if(err) console.log(`Error updating : ${err}`);
+        if(!err) console.log(`Error updating : ${err}`);
     });
 }
 
 function changeSettingsValue (productId, callback) {
     database.update({_id: productId }, { $set: {alertSettings: alertSettings.value} }, {multi:true}, function (err, replaced) {
-        if(err) console.log(`Error Updating ${err}`);
+        if(!err) console.log(`Error Updating ${err}`);
         console.log("finished");
     });
     callback(productId); // run next db call
